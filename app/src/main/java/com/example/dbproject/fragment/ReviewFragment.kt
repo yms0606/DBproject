@@ -13,7 +13,8 @@ import com.example.dbproject.databinding.FragmentReviewBinding
 class ReviewFragment : Fragment() {
 
     lateinit var binding : FragmentReviewBinding
-
+    // 리뷰 리스트가 있을 프레그먼트
+    // 리스트 뷰 디자인은 미정
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

@@ -18,12 +18,13 @@ class MainActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this,R.layout.activity_main)
 
         var f = HomeFragment()
-        supportFragmentManager.beginTransaction().add(R.id.main_content,f).commit()
+        supportFragmentManager.beginTransaction().add(R.id.main_content,f).commit() // 메인 최초 화면 설정
 
 
 
         binding.expandableBottomBar.onItemSelectedListener = {view, menuItem, isSelect->
             // https://github.com/st235/ExpandableBottomBar
+            // 네비게이션 바 클릭 시 이벤트
 
             when(menuItem.id){
                 R.id.nav_home_btn->{
