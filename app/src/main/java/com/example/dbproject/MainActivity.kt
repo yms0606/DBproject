@@ -5,7 +5,10 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.example.dbproject.databinding.ActivityMainBinding
+import com.example.dbproject.fragment.AccountFragment
 import com.example.dbproject.fragment.HomeFragment
+import com.example.dbproject.fragment.RankFragment
+import com.example.dbproject.fragment.ReviewFragment
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
@@ -32,12 +35,22 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.nav_review_btn->{
                     println("review")
+
+                    var f = ReviewFragment()
+                    supportFragmentManager.beginTransaction().replace(R.id.main_content,f).commit()
+
                 }
                 R.id.nav_rank_btn->{
                     println("rank")
+
+                    var f = RankFragment()
+                    supportFragmentManager.beginTransaction().replace(R.id.main_content,f).commit()
                 }
                 R.id.nav_account_btn->{
                     println("account")
+
+                    var f = AccountFragment()
+                    supportFragmentManager.beginTransaction().replace(R.id.main_content,f).commit()
                 }
 
             }
