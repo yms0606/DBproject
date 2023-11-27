@@ -29,13 +29,11 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
     ): View? {
 
         val fm = childFragmentManager
-
-
         val mapFragment = fm.findFragmentById(R.id.map_fragment)
                 as MapFragment??: MapFragment.newInstance().also {
             fm.beginTransaction().add(R.id.map_fragment,it).commit() }
         mapFragment.getMapAsync(this)  // 지도 객체 설정
-
+        // ============== 네이버 지도 api
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home,container,false)
 
@@ -45,17 +43,18 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
     override fun onMapReady(p0: NaverMap) {
         //37.2791667!4d127.0430556    겐코
         //37.27848!4d127.04279   한식이야기
+        // 지도 laod 시 실행, 현재 지도 위에 임의로 2개의 핀을 꼽아둠
 
         p0.moveCamera(CameraUpdate.scrollTo(LatLng(37.2800147,127.0436415))) // 초기좌표 설정
         p0.moveCamera(CameraUpdate.zoomTo(16.0)) // 지도 줌인 계수
 
-        val marker = Marker()
+        val marker = Marker() // 겐코 위치의 마커
         marker.icon = OverlayImage.fromResource(com.naver.maps.map.R.drawable.navermap_default_marker_icon_lightblue)
         marker.position = LatLng(37.2791667,127.0430556)
         marker.isIconPerspectiveEnabled = true
         marker.map = p0
 
-        val marker2 = Marker()
+        val marker2 = Marker() // 한식 이야기 위치의 마커
         marker2.icon = OverlayImage.fromResource(com.naver.maps.map.R.drawable.navermap_default_marker_icon_lightblue)
         marker2.position = LatLng(37.27848,127.04279)
         marker2.isIconPerspectiveEnabled = true

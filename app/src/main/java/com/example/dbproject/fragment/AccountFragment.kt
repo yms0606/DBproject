@@ -12,7 +12,7 @@ import com.example.dbproject.databinding.FragmentReviewBinding
 
 class AccountFragment : Fragment() {
     lateinit var binding : FragmentAccountBinding
-
+    // 내 계정 정보 보여주는 페이지
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

@@ -12,7 +12,7 @@ import com.example.dbproject.databinding.FragmentReviewBinding
 
 class RankFragment : Fragment() {
     lateinit var binding : FragmentRankBinding
-
+    // 가장 좋아요를 많이 받은 유저 1,2,3를 신기한 리스트 써서 만들면 어떨까 싶어서 만들어 둠
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
