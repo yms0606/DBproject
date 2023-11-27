@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        app:exb_color="#0cf"
+        android:icon="@drawable/icons8_home"
+        android:id="@+id/nav_home_btn"
+        android:enabled="true"
+        android:title="HOME" />
+    <item
+        app:exb_color="#00ccff"
+        android:icon="@drawable/icons8_review"
+        android:id="@+id/nav_review_btn"
+        android:enabled="true"
+        android:title="REVIEW" />
+    <item
+        app:exb_color="#00ccff"
+        android:icon="@drawable/icons8_rank"
+        android:id="@+id/nav_rank_btn"
+        android:enabled="true"
+        android:title="RANK"/>
+    <item
+        app:exb_color="#00ccff"
+        android:icon="@drawable/icons8_account"
+        android:id="@+id/nav_account_btn"
+        android:enabled="true"
+        android:title="ACCOUNT" />
+</menu>
