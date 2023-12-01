@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.example.dbproject.R
@@ -16,6 +17,7 @@ import com.naver.maps.map.NaverMap
 import com.naver.maps.map.NaverMapOptions
 import com.naver.maps.map.OnMapReadyCallback
 import com.naver.maps.map.overlay.Marker
+import com.naver.maps.map.overlay.Overlay
 import com.naver.maps.map.overlay.OverlayImage
 
 class HomeFragment : Fragment(), OnMapReadyCallback {
@@ -45,9 +47,31 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
         //37.27848!4d127.04279   한식이야기
         // 지도 laod 시 실행, 현재 지도 위에 임의로 2개의 핀을 꼽아둠
 
+
+
         p0.moveCamera(CameraUpdate.scrollTo(LatLng(37.2800147,127.0436415))) // 초기좌표 설정
         p0.moveCamera(CameraUpdate.zoomTo(16.0)) // 지도 줌인 계수
 
+
+        var places = ArrayList<ArrayList<Double>>()
+        places.add(arrayListOf(37.2791667,127.0430556))
+        places.add(arrayListOf(37.27848,127.04279))
+
+        places.forEach { place->
+            // 다중 마커 추가하는 방법, 이차원 배열을 사용해서 + 각 마커마다 클릭 이벤트 부여
+            //https://kimcoder.tistory.com/351
+            //https://navermaps.github.io/android-map-sdk/guide-ko/5-1.html
+            val marker = Marker()
+            marker.position = LatLng(place[0],place[1])
+            marker.icon = OverlayImage.fromResource(com.naver.maps.map.R.drawable.navermap_default_marker_icon_lightblue)
+            marker.isIconPerspectiveEnabled = true
+            marker.setOnClickListener {
+                Toast.makeText(context,place[0].toString(),Toast.LENGTH_SHORT).show()
+                true
+            }
+            marker.map = p0
+        }
+        /*
         val marker = Marker() // 겐코 위치의 마커
         marker.icon = OverlayImage.fromResource(com.naver.maps.map.R.drawable.navermap_default_marker_icon_lightblue)
         marker.position = LatLng(37.2791667,127.0430556)
@@ -59,5 +83,6 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
         marker2.position = LatLng(37.27848,127.04279)
         marker2.isIconPerspectiveEnabled = true
         marker2.map = p0
+        */
     }
 }
