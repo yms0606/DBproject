@@ -1,11 +1,17 @@
 package com.example.dbproject
 
+import android.content.DialogInterface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.RatingBar
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.FragmentManager
 import com.example.dbproject.databinding.ActivityMainBinding
+import com.example.dbproject.databinding.DialogDetailBinding
 import com.example.dbproject.fragment.AccountFragment
+import com.example.dbproject.fragment.DialogFragment
 import com.example.dbproject.fragment.HomeFragment
 import com.example.dbproject.fragment.RankFragment
 import com.example.dbproject.fragment.ReviewFragment
@@ -21,6 +27,9 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction().add(R.id.main_content,f).commit() // 메인 최초 화면 설정
 
 
+        binding.addReviewBtn.setOnClickListener{
+            DialogFragment().show(supportFragmentManager,"Add Review")
+        }
 
         binding.expandableBottomBar.onItemSelectedListener = {view, menuItem, isSelect->
             // https://github.com/st235/ExpandableBottomBar
