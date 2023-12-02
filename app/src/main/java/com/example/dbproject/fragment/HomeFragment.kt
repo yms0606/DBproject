@@ -16,6 +16,7 @@ import com.naver.maps.map.MapFragment
 import com.naver.maps.map.NaverMap
 import com.naver.maps.map.NaverMapOptions
 import com.naver.maps.map.OnMapReadyCallback
+import com.naver.maps.map.overlay.InfoWindow
 import com.naver.maps.map.overlay.Marker
 import com.naver.maps.map.overlay.Overlay
 import com.naver.maps.map.overlay.OverlayImage
@@ -57,32 +58,37 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
         places.add(arrayListOf(37.2791667,127.0430556))
         places.add(arrayListOf(37.27848,127.04279))
 
-        places.forEach { place->
-            // 다중 마커 추가하는 방법, 이차원 배열을 사용해서 + 각 마커마다 클릭 이벤트 부여
-            //https://kimcoder.tistory.com/351
-            //https://navermaps.github.io/android-map-sdk/guide-ko/5-1.html
-            val marker = Marker()
-            marker.position = LatLng(place[0],place[1])
-            marker.icon = OverlayImage.fromResource(com.naver.maps.map.R.drawable.navermap_default_marker_icon_lightblue)
-            marker.isIconPerspectiveEnabled = true
-            marker.setOnClickListener {
-                Toast.makeText(context,place[0].toString(),Toast.LENGTH_SHORT).show()
-                true
-            }
-            marker.map = p0
-        }
-        /*
-        val marker = Marker() // 겐코 위치의 마커
-        marker.icon = OverlayImage.fromResource(com.naver.maps.map.R.drawable.navermap_default_marker_icon_lightblue)
-        marker.position = LatLng(37.2791667,127.0430556)
-        marker.isIconPerspectiveEnabled = true
-        marker.map = p0
+        context?.let {
+            places.forEach { place->
+                // 다중 마커 추가하는 방법, 이차원 배열을 사용해서 + 각 마커마다 클릭 이벤트 부여
+                //https://kimcoder.tistory.com/351
+                //https://navermaps.github.io/android-map-sdk/guide-ko/5-1.html
 
-        val marker2 = Marker() // 한식 이야기 위치의 마커
-        marker2.icon = OverlayImage.fromResource(com.naver.maps.map.R.drawable.navermap_default_marker_icon_lightblue)
-        marker2.position = LatLng(37.27848,127.04279)
-        marker2.isIconPerspectiveEnabled = true
-        marker2.map = p0
-        */
+                val infoWindow = InfoWindow()
+                infoWindow.adapter = object : InfoWindow.DefaultTextAdapter(it) {
+                    override fun getText(infoWindow: InfoWindow): CharSequence {
+                        return place[0].toString() + "/" + place[1].toString()
+                    }
+                } // 정보창 선언
+
+                val marker = Marker()
+                marker.position = LatLng(place[0],place[1])
+                marker.icon = OverlayImage.fromResource(com.naver.maps.map.R.drawable.navermap_default_marker_icon_lightblue)
+                marker.isIconPerspectiveEnabled = true
+
+                marker.setOnClickListener {
+                    Toast.makeText(context,place[0].toString(),Toast.LENGTH_SHORT).show()
+
+                    if(marker.infoWindow == null) { // 정보창 띄우기
+                        infoWindow.open(marker)
+                    } else{
+                        infoWindow.close()
+                    }
+                    true
+                }
+
+                marker.map = p0
+            }
+        }
     }
 }
