@@ -12,7 +12,6 @@ dependencyResolutionManagement {
         mavenCentral()
 
         maven("https://naver.jfrog.io/artifactory/maven/")
-
     }
 }
 

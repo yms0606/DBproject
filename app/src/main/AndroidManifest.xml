@@ -13,19 +13,23 @@
         android:theme="@style/Theme.DBproject"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
-            android:exported="true">
+            android:name=".LoginActivity"
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+
+        </activity>
 
         <meta-data
             android:name="com.naver.maps.map.CLIENT_ID"
-            android:value="twnjbzszgo"/>
-
+            android:value="twnjbzszgo" />
     </application>
 
 </manifest>

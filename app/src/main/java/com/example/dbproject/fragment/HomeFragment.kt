@@ -59,6 +59,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
         places.add(arrayListOf(37.27848,127.04279))
 
         context?.let {
+
             places.forEach { place->
                 // 다중 마커 추가하는 방법, 이차원 배열을 사용해서 + 각 마커마다 클릭 이벤트 부여
                 //https://kimcoder.tistory.com/351
