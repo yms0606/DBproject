@@ -1,14 +1,18 @@
 package com.example.dbproject.fragment
 
+import android.app.Activity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.example.dbproject.R
+import com.example.dbproject.data.RestaurantData
 import com.example.dbproject.databinding.FragmentHomeBinding
+import com.google.firebase.firestore.FirebaseFirestore
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.CameraPosition
 import com.naver.maps.map.CameraUpdate
@@ -20,11 +24,26 @@ import com.naver.maps.map.overlay.InfoWindow
 import com.naver.maps.map.overlay.Marker
 import com.naver.maps.map.overlay.Overlay
 import com.naver.maps.map.overlay.OverlayImage
+import www.sanju.motiontoast.MotionToast
+import www.sanju.motiontoast.MotionToastStyle
 
 class HomeFragment : Fragment(), OnMapReadyCallback {
 
     lateinit var binding: FragmentHomeBinding
+    var firestore: FirebaseFirestore
+    var RestaurantDatas  = ArrayList<RestaurantData>()
 
+    init {
+        firestore = FirebaseFirestore.getInstance()
+        firestore.collection("Restaurants").addSnapshotListener { value, error ->
+
+            for(item in value!!.documents){
+                var res : RestaurantData? = item.toObject(RestaurantData::class.java)
+                println(res?.name)
+                RestaurantDatas.add(res!!)
+            }
+        }
+    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -39,7 +58,6 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
         // ============== 네이버 지도 api
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home,container,false)
-
         return binding.root
     }
 
@@ -58,29 +76,38 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
         places.add(arrayListOf(37.2791667,127.0430556))
         places.add(arrayListOf(37.27848,127.04279))
 
+
+        println(RestaurantDatas.size.toString())
+        //println(RestaurantDatas[1].name)
+
         context?.let {
 
-            places.forEach { place->
+                RestaurantDatas.forEach {place->
                 // 다중 마커 추가하는 방법, 이차원 배열을 사용해서 + 각 마커마다 클릭 이벤트 부여
                 //https://kimcoder.tistory.com/351
                 //https://navermaps.github.io/android-map-sdk/guide-ko/5-1.html
-
                 val infoWindow = InfoWindow()
                 infoWindow.adapter = object : InfoWindow.DefaultTextAdapter(it) {
                     override fun getText(infoWindow: InfoWindow): CharSequence {
-                        return place[0].toString() + "/" + place[1].toString()
+                        return place.name.toString() + "\n" + place.rating.toString()
                     }
                 } // 정보창 선언
 
                 val marker = Marker()
-                marker.position = LatLng(place[0],place[1])
+                marker.position = LatLng(place.latitude!!.toDouble(),place.longitude!!.toDouble())
                 marker.icon = OverlayImage.fromResource(com.naver.maps.map.R.drawable.navermap_default_marker_icon_lightblue)
                 marker.isIconPerspectiveEnabled = true
 
                 marker.setOnClickListener {
-                    Toast.makeText(context,place[0].toString(),Toast.LENGTH_SHORT).show()
 
                     if(marker.infoWindow == null) { // 정보창 띄우기
+                        MotionToast.createColorToast(context as Activity,
+                            "INFO",
+                            "해당 식당은 " +place.name.toString()+"입니다.",
+                            MotionToastStyle.INFO,
+                            MotionToast.GRAVITY_BOTTOM,
+                            MotionToast.LONG_DURATION,
+                            ResourcesCompat.getFont(requireContext(), www.sanju.motiontoast.R.font.helvetica_regular))
                         infoWindow.open(marker)
                     } else{
                         infoWindow.close()

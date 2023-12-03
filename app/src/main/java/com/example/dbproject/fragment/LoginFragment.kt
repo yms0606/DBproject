@@ -1,5 +1,6 @@
 package com.example.dbproject.fragment
 
+import android.app.Activity
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -8,12 +9,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.Toast
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.DialogFragment
+import com.example.dbproject.LoginActivity
+import com.example.dbproject.R
 import com.example.dbproject.data.UserData
 import com.example.dbproject.databinding.DialogDetailBinding
 import com.example.dbproject.databinding.FragmentLoginBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import www.sanju.motiontoast.MotionToast
+import www.sanju.motiontoast.MotionToastStyle
 
 class LoginFragment(): DialogFragment() {
 
@@ -51,7 +57,14 @@ class LoginFragment(): DialogFragment() {
                     firestore.collection("users").document().set(userData)
                     dismiss()
                 }else{
-                    Toast.makeText(context,"이미 존재하는 이메일입니다.",Toast.LENGTH_LONG).show()
+                    MotionToast.createColorToast(
+                        context as Activity,
+                        "Failed ☹️",
+                        "이미 존재하는 메일입니다.",
+                        MotionToastStyle.ERROR,
+                        MotionToast.GRAVITY_BOTTOM,
+                        MotionToast.LONG_DURATION,
+                        ResourcesCompat.getFont(requireContext(), www.sanju.motiontoast.R.font.helvetica_regular))
                 }
             }
         }

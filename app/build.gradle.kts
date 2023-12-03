@@ -42,7 +42,8 @@ android {
 }
 
 dependencies {
-    implementation("com.github.leandroborgesferreira:loading-button-android:2.3.0")
+    implementation ("com.github.Spikeysanju:MotionToast:1.4") // 토스트 메세지
+    implementation("com.github.leandroborgesferreira:loading-button-android:2.3.0") // 버튼 애니메이션
     implementation ("tw.com.oneup.www:reviewbar:1.0.2") // 평점 매기는 라이브러리
     implementation("com.github.st235:expandablebottombar:1.5.3") // 네비게이션 바
     implementation("com.naver.maps:map-sdk:3.17.0")
