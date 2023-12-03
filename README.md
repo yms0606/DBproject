@@ -18,3 +18,7 @@
 * naver api map
 
 * connect firebase auth
+
+* review dialog
+
+* login
