@@ -7,6 +7,8 @@
     </data>
 
     <LinearLayout
+        android:background="@drawable/dialog_radius_background"
+        android:elevation="15dp"
         android:padding="10dp"
         android:layout_margin="10dp"
         android:layout_width="match_parent"
@@ -14,7 +16,6 @@
 
         <LinearLayout
             android:orientation="vertical"
-            android:background="#534"
             android:layout_weight="1.1"
             android:layout_width="0dp"
             android:layout_height="100dp">
@@ -32,7 +33,6 @@
 
         <LinearLayout
             android:orientation="vertical"
-            android:background="#773"
             android:layout_weight="3"
             android:layout_width="0dp"
             android:layout_height="100dp">
