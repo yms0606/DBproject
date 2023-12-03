@@ -20,5 +20,6 @@ class RankFragment : Fragment() {
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_rank,container,false)
         return binding.root
+
     }
 }

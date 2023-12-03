@@ -12,7 +12,7 @@
         android:layout_height="wrap_content">
 
         <LinearLayout
-            android:elevation="15dp"
+            android:elevation="5dp"
             android:background="@drawable/dialog_radius_background"
             android:layout_marginBottom="15dp"
             android:padding="5dp"

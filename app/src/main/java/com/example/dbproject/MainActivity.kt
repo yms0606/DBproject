@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.RatingBar
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.FragmentManager
 import com.example.dbproject.databinding.ActivityMainBinding
@@ -15,6 +16,8 @@ import com.example.dbproject.fragment.DialogFragment
 import com.example.dbproject.fragment.HomeFragment
 import com.example.dbproject.fragment.RankFragment
 import com.example.dbproject.fragment.ReviewFragment
+import www.sanju.motiontoast.MotionToast
+import www.sanju.motiontoast.MotionToastStyle
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
@@ -26,6 +29,13 @@ class MainActivity : AppCompatActivity() {
         var f = HomeFragment()
         supportFragmentManager.beginTransaction().add(R.id.main_content,f).commit() // 메인 최초 화면 설정
 
+        MotionToast.createColorToast(this,
+            "SUCCESS",
+            "로그인 성공!",
+            MotionToastStyle.SUCCESS,
+            MotionToast.GRAVITY_BOTTOM,
+            MotionToast.LONG_DURATION,
+            ResourcesCompat.getFont(this, www.sanju.motiontoast.R.font.helvetica_regular))
 
         binding.addReviewBtn.setOnClickListener{
             DialogFragment().show(supportFragmentManager,"Add Review")
