@@ -21,4 +21,26 @@
 
 * review dialog
 
-* login
+* login, account
+
+* map click event
+
+* infowindow(custom & click)
+
+* add marker (50 items)
+
+* review post and save( save img, rating, menu rating ..)
+
+* ui develop ( ~ing)
+
+### Todo
+
+* account layout
+
+* add review list items
+
+* Rank layout
+
+* add data
+
+* finish
