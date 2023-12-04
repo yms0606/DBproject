@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:animateLayoutChanges="true"
+        android:background="@drawable/list_background"
+        android:id="@+id/info_view"
+        android:orientation="vertical"
+        android:layout_width="200dp"
+        android:layout_height="170dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <TextView
+                android:id="@+id/res_name"
+                android:paddingLeft="10dp"
+                android:textAlignment="textStart"
+                android:gravity="center"
+                android:text="식당 이름"
+                android:layout_width="120dp"
+                android:layout_height="match_parent"/>
+            <ImageView
+                android:src="@drawable/icon_star"
+                android:layout_width="20dp"
+                android:layout_height="match_parent"/>
+            <TextView
+                android:id="@+id/res_rating"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:text="4.5"
+                android:layout_width="30dp"
+                android:layout_height="match_parent"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/list_background"
+            android:paddingLeft="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="40dp">
+
+            <TextView
+                android:textSize="12dp"
+                android:id="@+id/m1_name"
+                android:paddingLeft="10dp"
+                android:textAlignment="textStart"
+                android:gravity="center"
+                android:text="식당 이름"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"/>
+            <ImageView
+                android:src="@drawable/icon_star"
+                android:layout_width="20dp"
+                android:layout_height="match_parent"/>
+            <TextView
+                android:id="@+id/m1_rating"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:text="4.5"
+                android:layout_width="30dp"
+                android:layout_height="match_parent"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/list_background"
+            android:paddingLeft="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="40dp">
+
+            <TextView
+                android:textSize="12dp"
+                android:id="@+id/m2_name"
+                android:paddingLeft="10dp"
+                android:textAlignment="textStart"
+                android:gravity="center"
+                android:text="식당 이름"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"/>
+            <ImageView
+                android:src="@drawable/icon_star"
+                android:layout_width="20dp"
+                android:layout_height="match_parent"/>
+            <TextView
+                android:id="@+id/m2_rating"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:text="4.5"
+                android:layout_width="30dp"
+                android:layout_height="match_parent"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/list_background"
+            android:paddingLeft="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="40dp">
+
+            <TextView
+                android:textSize="12dp"
+                android:id="@+id/m3_name"
+                android:paddingLeft="10dp"
+                android:textAlignment="textStart"
+                android:gravity="center"
+                android:text="식당 이름"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"/>
+            <ImageView
+                android:src="@drawable/icon_star"
+                android:layout_width="20dp"
+                android:layout_height="match_parent"/>
+            <TextView
+                android:id="@+id/m3_rating"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:text="4.5"
+                android:layout_width="30dp"
+                android:layout_height="match_parent"/>
+
+        </LinearLayout>
+    </LinearLayout>
+</layout>

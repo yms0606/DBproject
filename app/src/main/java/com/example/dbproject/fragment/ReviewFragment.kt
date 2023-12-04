@@ -5,6 +5,7 @@ import android.provider.ContactsContract.Data
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -36,7 +37,6 @@ class ReviewFragment : Fragment() {
     inner class ReviewRecyclerViewAdapter(): RecyclerView.Adapter<ReviewHolder>(){
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReviewHolder {
             var view = ItemReviewDetailBinding.inflate(LayoutInflater.from(parent.context),parent,false)
-
             return ReviewHolder(view)
         }
 
@@ -55,6 +55,16 @@ class ReviewFragment : Fragment() {
             examplelistacc.add("bbb@naver.com")
             viewHolder.reviewListResname.text = examplelist[position]
             viewHolder.reviewListAccname.text = examplelistacc[position]
+
+            viewHolder.listItem.setOnClickListener {
+                Toast.makeText(context,position.toString(),Toast.LENGTH_SHORT).show()
+
+                if(viewHolder.hidedView.visibility == View.VISIBLE){
+                    viewHolder.hidedView.visibility = View.GONE
+                }else{
+                    viewHolder.hidedView.visibility = View.VISIBLE
+                }
+            }
 
 
         }
