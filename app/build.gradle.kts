@@ -42,6 +42,8 @@ android {
 }
 
 dependencies {
+    implementation ("com.github.bumptech.glide:glide:4.16.0") // 사진 업로드 라이브러리
+    implementation("com.opencsv:opencsv:5.9") // csv 파일 읽기
     implementation ("com.github.Spikeysanju:MotionToast:1.4") // 토스트 메세지
     implementation("com.github.leandroborgesferreira:loading-button-android:2.3.0") // 버튼 애니메이션
     implementation ("tw.com.oneup.www:reviewbar:1.0.2") // 평점 매기는 라이브러리
@@ -52,6 +54,7 @@ dependencies {
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.10.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+    implementation("com.google.firebase:firebase-storage-ktx:20.3.0") //파이어베이스
     implementation("com.google.firebase:firebase-auth:22.3.0") // 파이어베이스
     implementation("com.google.firebase:firebase-firestore:24.9.1") // 파이어베이스
     implementation("androidx.annotation:annotation:1.7.0")

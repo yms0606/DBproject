@@ -5,13 +5,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import com.example.dbproject.R
 import com.example.dbproject.data.RestaurantData
 import com.example.dbproject.databinding.FragmentHomeBinding
+import com.example.dbproject.databinding.InfowindowDetailBinding
+import com.example.dbproject.databinding.ItemReviewDetailBinding
 import com.google.firebase.firestore.FirebaseFirestore
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.CameraPosition
@@ -21,12 +25,14 @@ import com.naver.maps.map.NaverMap
 import com.naver.maps.map.NaverMapOptions
 import com.naver.maps.map.OnMapReadyCallback
 import com.naver.maps.map.overlay.InfoWindow
+import com.naver.maps.map.overlay.InfoWindow.DefaultViewAdapter
 import com.naver.maps.map.overlay.Marker
 import com.naver.maps.map.overlay.Overlay
 import com.naver.maps.map.overlay.OverlayImage
+import kotlinx.coroutines.NonDisposableHandle.parent
 import www.sanju.motiontoast.MotionToast
 import www.sanju.motiontoast.MotionToastStyle
-
+import kotlin.math.*
 class HomeFragment : Fragment(), OnMapReadyCallback {
 
     lateinit var binding: FragmentHomeBinding
@@ -39,7 +45,6 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
 
             for(item in value!!.documents){
                 var res : RestaurantData? = item.toObject(RestaurantData::class.java)
-                println(res?.name)
                 RestaurantDatas.add(res!!)
             }
         }
@@ -58,6 +63,8 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
         // ============== 네이버 지도 api
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home,container,false)
+
+
         return binding.root
     }
 
@@ -71,52 +78,84 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
         p0.moveCamera(CameraUpdate.scrollTo(LatLng(37.2800147,127.0436415))) // 초기좌표 설정
         p0.moveCamera(CameraUpdate.zoomTo(16.0)) // 지도 줌인 계수
 
+        firestore.collection("Restaurants").addSnapshotListener { value, error ->
 
-        var places = ArrayList<ArrayList<Double>>()
-        places.add(arrayListOf(37.2791667,127.0430556))
-        places.add(arrayListOf(37.27848,127.04279))
+            RestaurantDatas.clear()
 
+            for(item in value!!.documents){
+                var res : RestaurantData? = item.toObject(RestaurantData::class.java)
+                RestaurantDatas.add(res!!)
+            }
 
-        println(RestaurantDatas.size.toString())
-        //println(RestaurantDatas[1].name)
-
-        context?.let {
+            context?.let {
 
                 RestaurantDatas.forEach {place->
-                // 다중 마커 추가하는 방법, 이차원 배열을 사용해서 + 각 마커마다 클릭 이벤트 부여
-                //https://kimcoder.tistory.com/351
-                //https://navermaps.github.io/android-map-sdk/guide-ko/5-1.html
-                val infoWindow = InfoWindow()
-                infoWindow.adapter = object : InfoWindow.DefaultTextAdapter(it) {
-                    override fun getText(infoWindow: InfoWindow): CharSequence {
-                        return place.name.toString() + "\n" + place.rating.toString()
-                    }
-                } // 정보창 선언
+                    // 다중 마커 추가하는 방법, 이차원 배열을 사용해서 + 각 마커마다 클릭 이벤트 부여
+                    //https://kimcoder.tistory.com/351
+                    //https://navermaps.github.io/android-map-sdk/guide-ko/5-1.html
 
-                val marker = Marker()
-                marker.position = LatLng(place.latitude!!.toDouble(),place.longitude!!.toDouble())
-                marker.icon = OverlayImage.fromResource(com.naver.maps.map.R.drawable.navermap_default_marker_icon_lightblue)
-                marker.isIconPerspectiveEnabled = true
 
-                marker.setOnClickListener {
 
-                    if(marker.infoWindow == null) { // 정보창 띄우기
-                        MotionToast.createColorToast(context as Activity,
-                            "INFO",
-                            "해당 식당은 " +place.name.toString()+"입니다.",
-                            MotionToastStyle.INFO,
-                            MotionToast.GRAVITY_BOTTOM,
-                            MotionToast.LONG_DURATION,
-                            ResourcesCompat.getFont(requireContext(), www.sanju.motiontoast.R.font.helvetica_regular))
-                        infoWindow.open(marker)
-                    } else{
+                    val infoWindow = InfoWindow()
+                    infoWindow.adapter = object : InfoWindow.DefaultViewAdapter(it){
+                        override fun getContentView(p0: InfoWindow): View {
+                            var views: InfowindowDetailBinding = InfowindowDetailBinding.inflate(
+                                LayoutInflater.from(context),LinearLayout(context),false)
+                            // binding의 객체화
+                            views.resName.text = place.name.toString()
+                            views.resRating.text = (round((place.rating?.times(100)!!)).div(100)!!).toString()
+                            views.m1Name.text = place.menu.get(0)
+                            views.m2Name.text = place.menu.get(1)
+                            views.m3Name.text = place.menu.get(2)
+                            views.m1Rating.text = (round(place.menuRating.get(0)*100)/100).toString()
+                            views.m2Rating.text = (round(place.menuRating.get(1)*100)/100).toString()
+                            views.m3Rating.text = (round(place.menuRating.get(2)*100)/100).toString()
+                            return views.root
+                        }
+
+                    } // 정보창 선언
+
+                    infoWindow.setOnClickListener {
+                        Toast.makeText(context,"클릭됨",Toast.LENGTH_SHORT).show()
+                        var dialogFragment = DialogFragment()
+                        var bundle = Bundle()
+                        bundle.putStringArrayList("menu",place.menu)
+                        bundle.putInt("id",place.id!!)
+                        bundle.putString("name",place.name)
+                        dialogFragment.arguments = bundle
+                        dialogFragment.show(requireActivity().supportFragmentManager,"Add Review")
+
                         infoWindow.close()
+                        true
                     }
-                    true
-                }
+                    val marker = Marker()
+                    marker.position = LatLng(place.latitude!!.toDouble(),place.longitude!!.toDouble())
+                    marker.icon = OverlayImage.fromResource(com.naver.maps.map.R.drawable.navermap_default_marker_icon_lightblue)
+                    marker.isIconPerspectiveEnabled = true
 
-                marker.map = p0
+                    marker.setOnClickListener {
+
+                        if(marker.infoWindow == null) { // 정보창 띄우기
+                            MotionToast.createColorToast(context as Activity,
+                                "INFO",
+                                "해당 식당은 " +place.name.toString()+" 입니다.",
+                                MotionToastStyle.INFO,
+                                MotionToast.GRAVITY_BOTTOM,
+                                MotionToast.LONG_DURATION,
+                                ResourcesCompat.getFont(requireContext(), www.sanju.motiontoast.R.font.helvetica_regular))
+                            infoWindow.open(marker)
+                        } else{
+                            infoWindow.close()
+                        }
+
+                        true
+                    }
+
+                    marker.map = p0
+                }
             }
         }
+
+
     }
 }

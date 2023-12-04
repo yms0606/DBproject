@@ -5,7 +5,7 @@ data class RestaurantData(
     var latitude: Double? = null,
     var longitude: Double? = null,
     var menu: ArrayList<String> = arrayListOf<String>(),
-    var menuRating: ArrayList<Float> = arrayListOf<Float>(),
+    var menuRating: ArrayList<Double> = arrayListOf<Double>(),
     var name: String? = null,
     var rating: Double? = 0.0,
     var reviewCount: Int? = 0,

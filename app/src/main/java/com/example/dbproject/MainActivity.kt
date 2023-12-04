@@ -37,10 +37,6 @@ class MainActivity : AppCompatActivity() {
             MotionToast.LONG_DURATION,
             ResourcesCompat.getFont(this, www.sanju.motiontoast.R.font.helvetica_regular))
 
-        binding.addReviewBtn.setOnClickListener{
-            DialogFragment().show(supportFragmentManager,"Add Review")
-        }
-
         binding.expandableBottomBar.onItemSelectedListener = {view, menuItem, isSelect->
             // https://github.com/st235/ExpandableBottomBar
             // 네비게이션 바 클릭 시 이벤트
