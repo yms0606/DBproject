@@ -16,11 +16,13 @@ import com.example.dbproject.fragment.DialogFragment
 import com.example.dbproject.fragment.HomeFragment
 import com.example.dbproject.fragment.RankFragment
 import com.example.dbproject.fragment.ReviewFragment
+import com.google.firebase.auth.FirebaseAuth
 import www.sanju.motiontoast.MotionToast
 import www.sanju.motiontoast.MotionToastStyle
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
+    lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,6 +30,9 @@ class MainActivity : AppCompatActivity() {
 
         var f = HomeFragment()
         supportFragmentManager.beginTransaction().add(R.id.main_content,f).commit() // 메인 최초 화면 설정
+
+        auth = FirebaseAuth.getInstance()
+
 
         MotionToast.createColorToast(this,
             "SUCCESS",

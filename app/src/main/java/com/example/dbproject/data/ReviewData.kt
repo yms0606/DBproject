@@ -9,5 +9,7 @@ data class ReviewData(
     var comment: String? = null,
     var imageUrl: String? = null,
     var favoriteList: ArrayList<String> = arrayListOf<String>(),
-    var menuRating: ArrayList<Double> = arrayListOf<Double>()
+    var menuRating: ArrayList<Double> = arrayListOf<Double>(),
+    var uid: String? = null,
+    var userUid: String? = null
 )

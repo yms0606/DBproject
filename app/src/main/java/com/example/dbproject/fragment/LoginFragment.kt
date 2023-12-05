@@ -54,7 +54,21 @@ class LoginFragment(): DialogFragment() {
                     userData.email = id
                     userData.phoneNumber = phoneNumber
                     userData.favoriteNumber = 0
-                    firestore.collection("users").document().set(userData)
+
+                    var uid = firestore.collection("users").document().id
+                    userData.uid = uid
+
+                    userData.userUid = task1.result.user?.uid
+                    firestore.collection("users").document(uid).set(userData)
+
+                    MotionToast.createColorToast(context as Activity,
+                        "SUCCESS",
+                        "계정 생성 완료",
+                        MotionToastStyle.SUCCESS,
+                        MotionToast.GRAVITY_BOTTOM,
+                        MotionToast.SHORT_DURATION,
+                        ResourcesCompat.getFont(requireContext(), www.sanju.motiontoast.R.font.helvetica_regular))
+
                     dismiss()
                 }else{
                     MotionToast.createColorToast(

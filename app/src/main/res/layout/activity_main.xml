@@ -31,14 +31,6 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"/>
 
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/add_review_btn"
-                    android:shadowColor="#fff"
-                    android:padding="8dp"
-                    android:src="@drawable/ic_add"
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"/>
             </LinearLayout>
 
             <FrameLayout

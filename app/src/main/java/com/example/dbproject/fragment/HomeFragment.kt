@@ -16,6 +16,7 @@ import com.example.dbproject.data.RestaurantData
 import com.example.dbproject.databinding.FragmentHomeBinding
 import com.example.dbproject.databinding.InfowindowDetailBinding
 import com.example.dbproject.databinding.ItemReviewDetailBinding
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.CameraPosition
@@ -36,6 +37,7 @@ import kotlin.math.*
 class HomeFragment : Fragment(), OnMapReadyCallback {
 
     lateinit var binding: FragmentHomeBinding
+    lateinit var auth: FirebaseAuth
     var firestore: FirebaseFirestore
     var RestaurantDatas  = ArrayList<RestaurantData>()
 
@@ -62,6 +64,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
         mapFragment.getMapAsync(this)  // 지도 객체 설정
         // ============== 네이버 지도 api
 
+        auth = FirebaseAuth.getInstance()
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home,container,false)
 
 
@@ -116,16 +119,39 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
                     } // 정보창 선언
 
                     infoWindow.setOnClickListener {
-                        Toast.makeText(context,"클릭됨",Toast.LENGTH_SHORT).show()
-                        var dialogFragment = DialogFragment()
-                        var bundle = Bundle()
-                        bundle.putStringArrayList("menu",place.menu)
-                        bundle.putInt("id",place.id!!)
-                        bundle.putString("name",place.name)
-                        dialogFragment.arguments = bundle
-                        dialogFragment.show(requireActivity().supportFragmentManager,"Add Review")
 
-                        infoWindow.close()
+                        var isAlready = false
+
+                        firestore.collection("Reviews").whereEqualTo("resId",place.id)
+                            .whereEqualTo("userName",auth.currentUser?.email).get().addOnCompleteListener {
+                                task->
+                                println("in")
+                                if( task.result.documents.size == 0){
+                                    isAlready = true
+                                }
+                                println(isAlready.toString())
+
+                                if(isAlready){
+                                    var dialogFragment = DialogFragment()
+                                    var bundle = Bundle()
+                                    bundle.putStringArrayList("menu",place.menu)
+                                    bundle.putInt("id",place.id!!)
+                                    bundle.putString("name",place.name)
+                                    dialogFragment.arguments = bundle
+                                    dialogFragment.show(requireActivity().supportFragmentManager,"Add Review")
+
+                                    infoWindow.close()
+                                }else{
+                                    MotionToast.createColorToast(context as Activity,
+                                        "INFO",
+                                        "이미 리뷰를 작성한 식당입니다.",
+                                        MotionToastStyle.ERROR,
+                                        MotionToast.GRAVITY_BOTTOM,
+                                        MotionToast.SHORT_DURATION,
+                                        ResourcesCompat.getFont(requireContext(), www.sanju.motiontoast.R.font.helvetica_regular))
+                                }
+                            }
+
                         true
                     }
                     val marker = Marker()
@@ -141,7 +167,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
                                 "해당 식당은 " +place.name.toString()+" 입니다.",
                                 MotionToastStyle.INFO,
                                 MotionToast.GRAVITY_BOTTOM,
-                                MotionToast.LONG_DURATION,
+                                MotionToast.SHORT_DURATION,
                                 ResourcesCompat.getFont(requireContext(), www.sanju.motiontoast.R.font.helvetica_regular))
                             infoWindow.open(marker)
                         } else{

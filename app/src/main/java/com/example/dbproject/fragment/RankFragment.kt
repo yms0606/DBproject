@@ -10,9 +10,12 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.example.dbproject.R
 import com.example.dbproject.data.RestaurantData
+import com.example.dbproject.data.UserData
 import com.example.dbproject.databinding.FragmentRankBinding
 import com.example.dbproject.databinding.FragmentReviewBinding
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
+import com.google.firebase.firestore.toObject
 import com.opencsv.CSVReader
 import org.apache.commons.logging.Log
 import java.io.InputStream
@@ -29,6 +32,27 @@ class RankFragment : Fragment() {
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_rank,container,false)
         firestore = FirebaseFirestore.getInstance()
+
+        var userDatas = arrayListOf<UserData>()
+
+        firestore.collection("users").orderBy("favoriteNumber", Query.Direction.DESCENDING).limit(3).get().addOnCompleteListener {
+            task->
+
+            for(item in task.result.documents){
+                var userData = item.toObject(UserData::class.java)
+                userDatas.add(userData!!)
+            }
+
+            binding.userName1st.text = userDatas[0].email
+            binding.likeCount1st.text = userDatas[0].favoriteNumber.toString()
+            binding.userName2nd.text = userDatas[1].email
+            binding.likeCount2nd.text = userDatas[1].favoriteNumber.toString()
+            binding.userName3rd.text = userDatas[2].email
+            binding.likeCount3rd.text = userDatas[2].favoriteNumber.toString()
+
+        }
+
+
 
         /*binding.inputDataBtn.setOnClickListener {
             // 데이터 삽입
