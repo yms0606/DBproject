@@ -7,7 +7,7 @@
 
 ** fork하거나 브랜치 만들어서 작업하고 merge 하기 !!
 
-### finish
+### ==== finish ====
 
 * navigation bar
 
@@ -31,16 +31,15 @@
 
 * review post and save( save img, rating, menu rating ..)
 
-* ui develop ( ~ing)
-
-### Todo
-
-* account layout
+* * account layout
 
 * add review list items
 
 * Rank layout
 
 * add data
+
+
+### ==== Todo ====
 
 * finish
