@@ -110,8 +110,12 @@ class DialogFragment(): DialogFragment() {
                 reviewData.menuRating.add(me2_rating.toDouble())
                 reviewData.menuRating.add(me3_rating.toDouble())
                 reviewData.comment = binding.reviewComment.text.toString()
+                reviewData.userUid = firebaseAuth?.currentUser?.uid
 
-                firestore.collection("Reviews").document().set(reviewData)
+                var uid = firestore.collection("Reviews").document().id
+                reviewData.uid = uid
+
+                firestore.collection("Reviews").document(uid).set(reviewData)
 
             }
             var path = "doc"+id.toString()

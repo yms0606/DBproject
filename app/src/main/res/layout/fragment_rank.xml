@@ -6,17 +6,227 @@
     </data>
 
     <LinearLayout
-        android:background="@color/cardview_dark_background"
+        android:paddingTop="10dp"
+        android:paddingBottom="110dp"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <Button
-            android:id="@+id/input_data_btn"
-            android:layout_marginLeft="150dp"
-            android:layout_gravity="center"
-            android:text="input data"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+        <LinearLayout
+            android:background="@drawable/list_background"
+            android:elevation="5dp"
+            android:layout_margin="20dp"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp">
+
+            <ImageView
+                android:src="@drawable/icon_rank1"
+                android:layout_weight="2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"/>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_weight="6"
+                android:layout_width="0dp"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/userName_1st"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="40dp"
+                    android:textSize="20dp"
+                    android:text="ymsix0622@gmail.com"
+                    android:layout_weight="1.5"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"/>
+
+                <TextView
+                    android:paddingLeft="30dp"
+                    android:textSize="20dp"
+                    android:text="Total Like"
+                    android:layout_weight="0.6"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"/>
+
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp">
+
+                    <ImageView
+                        android:paddingLeft="20dp"
+                        android:paddingBottom="10dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginLeft="10dp"
+
+                        android:layout_marginBottom="10dp"
+                        android:layout_weight="2"
+                        android:src="@drawable/icon_like"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"/>
+
+                    <TextView
+                        android:id="@+id/likeCount_1st"
+                        android:textStyle="bold"
+                        android:textSize="20dp"
+                        android:paddingTop="5dp"
+                        android:text="10"
+                        android:layout_weight="6"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"/>
+
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:background="@drawable/list_background"
+            android:elevation="5dp"
+            android:layout_margin="20dp"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp">
+
+            <ImageView
+                android:src="@drawable/icon_rank2"
+                android:layout_weight="2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"/>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_weight="6"
+                android:layout_width="0dp"
+                android:layout_height="match_parent">
+
+
+                <TextView
+                    android:id="@+id/userName_2nd"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="40dp"
+                    android:textSize="20dp"
+                    android:text="User Name"
+                    android:layout_weight="1.5"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"/>
+
+                <TextView
+                    android:paddingLeft="30dp"
+                    android:textSize="20dp"
+                    android:text="Total Like"
+                    android:layout_weight="0.6"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"/>
+
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp">
+
+                    <ImageView
+                        android:paddingLeft="20dp"
+                        android:paddingBottom="10dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginLeft="10dp"
+
+                        android:layout_marginBottom="10dp"
+                        android:layout_weight="2"
+                        android:src="@drawable/icon_like"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"/>
+
+                    <TextView
+                        android:id="@+id/likeCount_2nd"
+                        android:textStyle="bold"
+                        android:textSize="20dp"
+                        android:paddingTop="5dp"
+                        android:text="10"
+                        android:layout_weight="6"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"/>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:background="@drawable/list_background"
+            android:elevation="5dp"
+            android:layout_margin="20dp"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp">
+
+            <ImageView
+                android:src="@drawable/icon_rank3"
+                android:layout_weight="2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"/>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_weight="6"
+                android:layout_width="0dp"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/userName_3rd"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="40dp"
+                    android:textSize="20dp"
+                    android:text="User Name"
+                    android:layout_weight="1.5"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"/>
+
+                <TextView
+                    android:paddingLeft="30dp"
+                    android:textSize="20dp"
+                    android:text="Total Like"
+
+                    android:layout_weight="0.6"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"/>
+
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp">
+
+                    <ImageView
+                        android:paddingLeft="20dp"
+                        android:paddingBottom="10dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginLeft="10dp"
+
+                        android:layout_marginBottom="10dp"
+                        android:layout_weight="2"
+                        android:src="@drawable/icon_like"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"/>
+
+                    <TextView
+                        android:id="@+id/likeCount_3rd"
+                        android:textStyle="bold"
+                        android:textSize="20dp"
+                        android:paddingTop="5dp"
+                        android:text="10"
+                        android:layout_weight="6"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
 
     </LinearLayout>
 </layout>
