@@ -21,6 +21,7 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.DialogFragment
 import com.example.dbproject.data.RestaurantData
 import com.example.dbproject.data.ReviewData
+import com.example.dbproject.data.UserData
 import com.example.dbproject.databinding.DialogDetailBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldPath
@@ -97,25 +98,35 @@ class DialogFragment(): DialogFragment() {
             }?.addOnCompleteListener {
                 downloadUrl->
 
-                var reviewData = ReviewData()
 
-                reviewData.resName = name
-                reviewData.resId = id
-                reviewData.userName = firebaseAuth?.currentUser?.email
-                reviewData.favorite = 0
-                reviewData.favoriteList = ArrayList<String>()
-                reviewData.resRating = rating.toDouble()
-                reviewData.imageUrl = downloadUrl.result.toString()
-                reviewData.menuRating.add(me1_rating.toDouble())
-                reviewData.menuRating.add(me2_rating.toDouble())
-                reviewData.menuRating.add(me3_rating.toDouble())
-                reviewData.comment = binding.reviewComment.text.toString()
-                reviewData.userUid = firebaseAuth?.currentUser?.uid
 
-                var uid = firestore.collection("Reviews").document().id
-                reviewData.uid = uid
+                var d = firestore.collection("users").whereEqualTo("email",firebaseAuth.currentUser?.email)
+                d.get().addOnCompleteListener {
+                    task->
+                    var fd = task.result.documents.first().toObject(UserData::class.java)
 
-                firestore.collection("Reviews").document(uid).set(reviewData)
+                    var reviewData = ReviewData()
+
+                    reviewData.resName = name
+                    reviewData.resId = id
+                    reviewData.userName = firebaseAuth?.currentUser?.email
+                    reviewData.favorite = 0
+                    reviewData.favoriteList = ArrayList<String>()
+                    reviewData.resRating = rating.toDouble()
+                    reviewData.imageUrl = downloadUrl.result.toString()
+                    reviewData.menuRating.add(me1_rating.toDouble())
+                    reviewData.menuRating.add(me2_rating.toDouble())
+                    reviewData.menuRating.add(me3_rating.toDouble())
+                    reviewData.comment = binding.reviewComment.text.toString()
+
+                    reviewData.userUid = fd?.uid
+
+                    var uid = firestore.collection("Reviews").document().id
+                    reviewData.uid = uid
+
+                    firestore.collection("Reviews").document(uid).set(reviewData)
+                }
+
 
             }
             var path = "doc"+id.toString()

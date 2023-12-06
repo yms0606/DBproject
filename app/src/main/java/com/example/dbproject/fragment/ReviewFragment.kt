@@ -62,6 +62,7 @@ class ReviewFragment : Fragment() {
                     var reviewData = item.toObject(ReviewData::class.java)
                     reviewDatas.add(reviewData!!)
                 }
+
                 reviewDatas.reverse()
                 notifyDataSetChanged()
             }
@@ -81,6 +82,11 @@ class ReviewFragment : Fragment() {
             var viewHolder = holder.binding
             var path = "doc"+reviewDatas[position].resId.toString()
 
+            if(reviewDatas[position].favoriteList.contains(auth.currentUser!!.email)){
+                viewHolder.reviewListFavbtn.setImageResource(R.drawable.icon_heart)
+            }else{
+                viewHolder.reviewListFavbtn.setImageResource(R.drawable.icon_base_heart)
+            }
 
             var restaurantData = firestore.collection("Restaurants").document(path)
             restaurantData.get().addOnCompleteListener {
@@ -93,9 +99,7 @@ class ReviewFragment : Fragment() {
 
             }
 
-            if(reviewDatas[position].favoriteList.contains(auth.currentUser!!.email)){
-                viewHolder.reviewListFavbtn.setImageResource(R.drawable.icon_heart)
-            }
+
 
             viewHolder.reviewListResname.text = reviewDatas[position].resName
             viewHolder.reviewListAccname.text = reviewDatas[position].userName
