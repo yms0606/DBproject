@@ -113,19 +113,23 @@ class ReviewFragment : Fragment() {
             Glide.with(holder.itemView.context).load(reviewDatas[position].imageUrl)
                 .into(viewHolder.reivewListImage)
 
+
             viewHolder.root.setOnClickListener {
                 if(viewHolder.hidedView.visibility == View.VISIBLE){
                     viewHolder.hidedView.visibility = View.GONE
-                    notifyDataSetChanged()
+                    //notifyDataSetChanged()
                 }else{
                     viewHolder.hidedView.visibility = View.VISIBLE
                 }
             }
 
             viewHolder.reviewListFavbtn.setOnClickListener {
+
+
+
                 if(reviewDatas[position].favoriteList.contains(auth.currentUser!!.email)){
 
-                    viewHolder.reviewListFavbtn.setImageResource(R.drawable.icon_base_heart)
+                    //viewHolder.reviewListFavbtn.setImageResource(R.drawable.icon_base_heart)
                     reviewDatas[position].favoriteList.remove(auth.currentUser!!.email)
                     reviewDatas[position].favorite = reviewDatas[position].favorite?.minus(1)
 
@@ -142,7 +146,8 @@ class ReviewFragment : Fragment() {
                     }
 
                 }else{
-                    viewHolder.reviewListFavbtn.setImageResource(R.drawable.icon_heart)
+
+                    //viewHolder.reviewListFavbtn.setImageResource(R.drawable.icon_heart)
                     reviewDatas[position].favoriteList.add(auth.currentUser!!.email!!)
                     reviewDatas[position].favorite = reviewDatas[position].favorite?.plus(1)
 
@@ -157,6 +162,7 @@ class ReviewFragment : Fragment() {
 
                         userData.update(userUpdates)
                     }
+
                 }
 
                 val updates = hashMapOf<String,Any>(

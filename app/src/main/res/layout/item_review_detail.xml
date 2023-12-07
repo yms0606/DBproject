@@ -94,7 +94,6 @@
                     android:layout_marginLeft="100dp"
                     android:background="#fff"
                     android:scaleType="centerInside"
-                    android:src="@drawable/icon_base_heart"
                     android:id="@+id/review_list_favbtn"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"

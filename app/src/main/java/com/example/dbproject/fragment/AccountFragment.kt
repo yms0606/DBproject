@@ -56,9 +56,9 @@ class AccountFragment : Fragment() {
         firestore = FirebaseFirestore.getInstance()
         storage = FirebaseStorage.getInstance()
 
-        var i = Intent(Intent.ACTION_PICK)
-        i.type = "image/*"
-        photoResult.launch(i)
+        //var i = Intent(Intent.ACTION_PICK)
+        //i.type = "image/*"
+        //photoResult.launch(i)
 
         firestore.collection("users").whereEqualTo("email",auth.currentUser!!.email).get().addOnCompleteListener {
             task->
